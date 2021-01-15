@@ -286,9 +286,6 @@ install-oh-my()
         echo "${CODESPACES_ZSH}" > ${OH_MY_INSTALL_DIR}/custom/themes/codespaces.zsh-theme
     fi
 
-    echo -e "$(cat "${USER_RC_FILE}")\n\nif [ -d /root/.dotnet/tools ]; then\n  PATH=\"\$PATH:/root/.dotnet/tools\"\nfi" > ${USER_RC_FILE}
-    echo -e "$(cat "${USER_RC_FILE}")\n\nif [ ! -f ~/.configured ]; then\n  if [ -d /conf ]; then\n    sh /conf/artifacts.sh\n  else\n    echo \"Could not find artifacts.sh. Please copy .devcontainer/Scripts/artifacts.sh to /conf/artifacts.sh and restart your terminal\"\n  fi\nfi" > ${USER_RC_FILE}
-
     # Shrink git while still enabling updates
     cd ${OH_MY_INSTALL_DIR} 
     git repack -a -d -f --depth=1 --window=1
