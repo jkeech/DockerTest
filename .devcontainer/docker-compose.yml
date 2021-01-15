@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  app:
+    container_name: MyProject
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        USER_UID: 1000
+        USER_GID: 1000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker-host.sock
+      - ..:/workspace:cached
+      - shareddata:/tmp/db/backup
+    network_mode: host
+    entrypoint: /usr/local/share/docker-init.sh
+    command: sleep infinity
+  db:
+    container_name: MyProjectDB
+    image: alpine
+    volumes:
+      - shareddata:/tmp/db/backup
+    network_mode: host
+
+volumes:
+  shareddata:
